@@ -1,12 +1,15 @@
 var SrvrSvr = {};
 (
 	function(){
-		SrvrSvr = function(postUrl){
+		SrvrSvr = function(postUrl, interval){
 			if (typeof postUrl === 'undefined' || postUrl.length < 1) {
 				throw new Error('Parameter must be URL to which data should be posted');
 			}
 			else if(typeof Q === 'undefined'){
 				throw new Error('"Q" Library is a required dependency of SrvrSvr.');
+			}
+			else if(typeof interval === 'undefined'){
+				var interval = 3000;
 			}
 			else{
 				var output = {
@@ -21,7 +24,7 @@ var SrvrSvr = {};
 							setTimeout(function(){
 								output.waiting = false;
 								output.resolve();
-							}, 3000);
+							}, interval);
 						}else if(output.waiting){
 							output.data = newData;
 						}
