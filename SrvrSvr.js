@@ -8,10 +8,10 @@ var SrvrSvr = {};
 			else if(typeof Q === 'undefined'){
 				throw new Error('"Q" Library is a required dependency of SrvrSvr.');
 			}
-			else if(typeof interval === 'undefined'){
-				var interval = 3000;
-			}
 			else{
+				if (typeof interval === 'undefined') {
+					var interval = 3000; //setting default interval
+				};
 				var output = {
 					request: function(newData){
 						if(!output.running){
