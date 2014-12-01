@@ -9,7 +9,7 @@ var SrvrSvr = {};
 				throw new Error('"Q" Library is a required dependency of SrvrSvr.');
 			}
 			else if (typeof callback === 'undefined') {
-				throw new Error('A callback is required (what do you want to do with the server\'s response?)';
+				throw new Error('A callback is required (what do you want to do with the server\'s response?)');
 			};
 			else{
 				if (typeof interval === 'undefined') {
