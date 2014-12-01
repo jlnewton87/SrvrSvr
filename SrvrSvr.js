@@ -10,11 +10,11 @@ var SrvrSvr = {};
 			}
 			else if (typeof callback === 'undefined') {
 				throw new Error('A callback is required (what do you want to do with the server\'s response?)');
-			};
+			}
 			else{
 				if (typeof interval === 'undefined') {
 					var interval = 3000; //setting default interval
-				};
+				}
 				var output = {
 					request: function(newData){
 						if(!output.running){
