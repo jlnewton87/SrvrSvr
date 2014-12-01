@@ -1,13 +1,16 @@
 var SrvrSvr = {};
 (
 	function(){
-		SrvrSvr = function(postUrl, interval){
+		SrvrSvr = function(postUrl, callback, interval){
 			if (typeof postUrl === 'undefined' || postUrl.length < 1) {
 				throw new Error('Parameter must be URL to which data should be posted');
 			}
 			else if(typeof Q === 'undefined'){
 				throw new Error('"Q" Library is a required dependency of SrvrSvr.');
 			}
+			else if (typeof callback === 'undefined') {
+				throw new Error('A callback is required (what do you want to do with the server\'s response?)';
+			};
 			else{
 				if (typeof interval === 'undefined') {
 					var interval = 3000; //setting default interval
@@ -55,7 +58,7 @@ var SrvrSvr = {};
 				output.req.onreadystatechange = function(){
 					if(output.req.readyState == 4 && output.req.status == 200){
 						output.running = false;
-						alert(output.req.responseText);
+						callback(output.req.responseText);
 					}
 				};
 				output.req.send(output.data);
