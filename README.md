@@ -5,7 +5,8 @@ Save your servers by limiting the number of resource intensive/long running requ
 Requirements
 -----
 This project relies on [Q](https://github.com/kriskowal/q)
-    If Q is not found, then SrvrSvr will throw an exception in the constructor
+
+If Q is not found, then SrvrSvr will throw an exception in the constructor
 
 
 Usage
