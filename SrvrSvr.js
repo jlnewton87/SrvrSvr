@@ -1,7 +1,7 @@
 var SrvrSvr = {};
 (
 	function(){
-		SrvrSvr = function(postUrl, successCallback, errorCallback, isJson, interval){
+		SrvrSvr = function(postUrl, successCallback, errorCallback, contentTypeString, interval){
 			if (typeof postUrl === 'undefined' || postUrl.length < 1) {
 				throw new Error('Parameter must be URL to which data should be posted');
 			}
@@ -18,8 +18,8 @@ var SrvrSvr = {};
 				if (typeof interval === 'undefined') {
 					var interval = 3000; //setting default interval
 				}
-				if (typeof isJson === 'undefined') {
-				    var isJson = true;
+				if (typeof contentTypeString === 'undefined') {
+				    var contentTypeString = 'application/json';
 				}
 				var output = {
 					request: function(newData){
@@ -60,12 +60,7 @@ var SrvrSvr = {};
 				output.req = new XMLHttpRequest();
 				output.running = true;
 				output.req.open("POST", postUrl, true);
-				if (isJson) {
-				    output.req.setRequestHeader("Content-type","application/json");
-				}
-				else {
-				    output.req.setRequestHeader("Content-type", "application/x-www-form-urlencoded ");
-				}
+				output.req.setRequestHeader("Content-type", contentTypeString);
 				output.req.onreadystatechange = function(){
 					if(output.req.readyState == 4 && output.req.status == 200){
 						output.running = false;
