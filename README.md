@@ -19,7 +19,7 @@ $(document).ready(function(){
     //of the data to be posted (application/json, application/x-www-form-urlencoded)
     //
     //it also accepts an interval in milliseconds, for time between concurrent requests
-    var saver = new SrvrSvr('http://localhost:8081', somethingToDoOnSuccess, SomethingToDoOnError, 'application/json')
+    var saver = new SrvrSvr('http://localhost:8081', somethingToDoOnSuccess, SomethingToDoOnError, 'application/json');
     $('input:checkbox').change(function(){
         //call saver.request() with the data to be posted to the URL given to the constructor
         saver.request(JSON.stringify({id:this.id}));
