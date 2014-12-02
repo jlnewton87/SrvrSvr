@@ -1,19 +1,25 @@
 var SrvrSvr = {};
 (
 	function(){
-		SrvrSvr = function(postUrl, callback, interval){
+		SrvrSvr = function(postUrl, successCallback, errorCallback, isJson, interval){
 			if (typeof postUrl === 'undefined' || postUrl.length < 1) {
 				throw new Error('Parameter must be URL to which data should be posted');
 			}
 			else if(typeof Q === 'undefined'){
 				throw new Error('"Q" Library is a required dependency of SrvrSvr.');
 			}
-			else if (typeof callback === 'undefined') {
+			else if (typeof successCallback === 'undefined') {
 				throw new Error('A callback is required (what do you want to do with the server\'s response?)');
+			}
+			else if (typeof errorCallback === 'undefined') {
+			    throw new Error('An error callback is required (what do you want to do if the response is an error?)');
 			}
 			else{
 				if (typeof interval === 'undefined') {
 					var interval = 3000; //setting default interval
+				}
+				if (typeof isJson === 'undefined') {
+				    var isJson = true;
 				}
 				var output = {
 					request: function(newData){
@@ -54,11 +60,19 @@ var SrvrSvr = {};
 				output.req = new XMLHttpRequest();
 				output.running = true;
 				output.req.open("POST", postUrl, true);
-				output.req.setRequestHeader("Content-type","application/json");
+				if (isJson) {
+				    output.req.setRequestHeader("Content-type","application/json");
+				}
+				else {
+				    output.req.setRequestHeader("Content-type", "application/x-www-form-urlencoded ");
+				}
 				output.req.onreadystatechange = function(){
 					if(output.req.readyState == 4 && output.req.status == 200){
 						output.running = false;
-						callback(output.req.responseText);
+						successCallback(output.req.responseText);
+					}
+					else if (output.req.readyState == 4 && output.req.status > 200) {
+					    errorCallback(output.req.responseText);
 					}
 				};
 				output.req.send(output.data);
